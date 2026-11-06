@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* Dark mode is activated by the "dark" class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- THEME COLOURS (single source of truth) ---------- */
+:root {
+  --page: #f5f7f8;
+  --surface: #ffffff;
+  --accent: #e99a30;
+  --accent-text: #a15f0a; /* darker orange for small text on light backgrounds */
+  --on-accent: #173b45;
+  --ink: #173b45;
+  --muted: #64777a;
+  --line: #dce4e5;
+}
+
+.dark {
+  --page: #081719;
+  --surface: #102629;
+  --accent: #f5a13b;
+  --accent-text: #f5a13b;
+  --on-accent: #081719;
+  --ink: #e9eeee;
+  --muted: #91a5a6;
+  --line: #244044;
+}
+
+/* Makes classes such as bg-page, text-ink, border-line, bg-accent available */
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-on-accent: var(--on-accent);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ---------- BASE ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter {
+  animation: page-enter 0.45s ease-out both;
+}
+
+@keyframes menu-enter {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.menu-enter {
+  animation: menu-enter 0.2s ease-out both;
+}
+
+.theme-smooth {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* ---------- PHASE 4 ADDITIONS: MODAL ---------- */
+@keyframes overlay-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes overlay-out { from { opacity: 1; } to { opacity: 0; } }
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes panel-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(16px) scale(0.98); }
+}
+
+.modal-overlay { animation: overlay-in 0.2s ease-out both; }
+.modal-overlay[data-closing="true"] { animation: overlay-out 0.2s ease-in both; }
+
+.modal-panel { animation: panel-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.modal-panel[data-closing="true"] { animation: panel-out 0.2s ease-in both; }
+
+/* ---------- PHASE 6 ADDITIONS: CHATBOT ---------- */
+@keyframes chat-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes chat-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(12px) scale(0.97); }
+}
+.chat-window {
+  transform-origin: bottom right;
+  animation: chat-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.chat-window[data-closing="true"] {
+  animation: chat-out 0.18s ease-in both;
+}
+
+@keyframes fab-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.chat-fab { animation: fab-in 0.25s ease-out both; }
+
+@keyframes bubble-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.bubble-in { animation: bubble-in 0.25s ease-out both; }
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+.typing-dot { animation: typing-bounce 1.2s ease-in-out infinite; }
