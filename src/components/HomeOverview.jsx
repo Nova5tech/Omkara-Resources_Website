@@ -29,7 +29,7 @@ export default function HomeOverview() {
           <p className="text-sm text-muted">Tap a section to jump straight to it.</p>
         </div>
 
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {overviewItems.map((item, i) => {
             const Icon = item.icon;
             return (

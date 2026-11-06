@@ -14,7 +14,7 @@ export default function Hero() {
           </p>
 
           <h1
-            className="fade-up text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl lg:text-6xl"
+            className="fade-up text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl xl:text-6xl"
             style={{ animationDelay: '0.08s' }}
           >
             <span className="block">Building People.</span>

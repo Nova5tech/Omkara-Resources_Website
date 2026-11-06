@@ -30,7 +30,7 @@ export default function Brand({ size = 'md', onClick }) {
         <span className="block truncate font-display text-lg font-extrabold tracking-tight text-ink sm:text-xl">
           OMKARA <span className="text-accent-text">RESOURCES</span>
         </span>
-        <span className="hidden truncate text-[10px] font-medium tracking-wide text-muted min-[480px]:block sm:text-[11px]">
+         <span className="hidden truncate text-[10px] font-medium tracking-wide text-muted min-[480px]:block lg:hidden xl:block sm:text-[11px]">
           {company.tagline}
         </span>
       </span>
