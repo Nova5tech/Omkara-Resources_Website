@@ -13,6 +13,7 @@ import {
   HeartHandshake,
   Puzzle,
   Check,
+  CalendarDays,
 } from 'lucide-react';
 import usePageMeta from '../hooks/usePageMeta';
 import SectionHeading from '../components/SectionHeading';
@@ -21,6 +22,9 @@ import { services } from '../data/companyData';
 /* ---------------------------------------------------------------
    EDITABLE CONTENT: change the wording here, not in the layout.
    --------------------------------------------------------------- */
+
+// Company incorporation date (shown in the Who We Are section)
+const incorporationDate = '18 June 2026';
 
 const mission =
   'To deliver useful, dependable business solutions through manpower, civil construction and technology services, helping our clients meet their operational and project goals.';
@@ -122,6 +126,16 @@ export default function About() {
               support the people behind a business, the structures it relies on and the technology
               that carries it forward.
             </p>
+
+            <div className="inline-flex items-center gap-3 rounded-2xl border border-line bg-surface px-5 py-3">
+              <CalendarDays size={20} className="shrink-0 text-accent-text" aria-hidden="true" />
+              <div>
+                <p className="font-mono text-xs uppercase tracking-widest text-accent-text">
+                  Date of Incorporation
+                </p>
+                <p className="font-display text-lg font-bold text-ink">{incorporationDate}</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -270,18 +284,18 @@ export default function About() {
         </div>
       </section>
 
-      {/* Closing call to action */}
+      {/* Closing call to action (white card) */}
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-24">
-        <div className="rounded-3xl bg-accent px-6 py-14 text-center text-on-accent sm:px-12 sm:py-16">
-          <h2 className="mx-auto max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl">
+        <div className="theme-smooth rounded-3xl border border-line bg-surface px-6 py-14 text-center sm:px-12 sm:py-16">
+          <h2 className="mx-auto max-w-2xl text-3xl font-extrabold leading-tight text-ink sm:text-4xl">
             Let&rsquo;s Build Something Together.
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-base opacity-90 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-xl text-base text-muted sm:text-lg">
             Connect with OMKARA RESOURCES to discuss your business requirements.
           </p>
           <Link
             to="/contact"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-on-accent px-7 py-3.5 text-sm font-semibold text-accent transition hover:-translate-y-0.5 hover:shadow-xl"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-on-accent transition hover:-translate-y-0.5 hover:shadow-lg"
           >
             Get In Touch <ArrowRight size={16} aria-hidden="true" />
           </Link>

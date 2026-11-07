@@ -4,11 +4,12 @@ export const company = {
   name: 'OMKARA RESOURCES',
   tagline: 'Building People | Building Structures | Building Futures',
   logo: '/images/omkara-logo.png',
-  // EDIT THESE when you have the real details:
+  website: 'omkararesources.com',
   contact: {
-    phone: '[Phone number – to be added]',
-    email: '[Email address – to be added]',
-    address: '[Office address – to be added]',
+    phone: '+91 89854 81447',
+    email: 'communications@omkararesources.com',
+    address:
+      '14-1-1/G8, SSSB Vasam Twin Towers, Aditya Nagar, Hukumpet Post, Rajamundry – 533107',
     hours: 'Mon to Sat, 9:30 AM to 6:30 PM',
   },
   // Add real links only, e.g. { label: 'LinkedIn', href: 'https://...' }.

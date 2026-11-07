@@ -1,26 +1,8 @@
 /**
- * CONTACT FORM SUBMISSION: THE INTEGRATION POINT
- * ------------------------------------------------------------
- * The Contact page calls submitEnquiry(data). This is the ONLY
- * place that decides where an enquiry goes.
- *
- * To connect a real service (for example Formspree):
- *   1. Create a form at https://formspree.io and copy its URL,
- *      which looks like  https://formspree.io/f/xxxxxxxx
- *   2. In the project root, create a file named .env containing:
- *        VITE_CONTACT_ENDPOINT=https://formspree.io/f/xxxxxxxx
- *   3. Stop and restart `npm run dev` (env files are read at start-up).
- *   4. On Netlify, add the same variable under
- *      Site configuration → Environment variables, then redeploy.
- *
- * The endpoint URL is not a secret, so a VITE_ variable is fine here.
- * Never put private API keys in a VITE_ variable: they become public.
- *
- * Any service that accepts a JSON POST works. If you switch services,
- * adjust the request below.
- *
- * Until an endpoint is set, this function throws NOT_CONFIGURED and the
- * page shows an honest "not sent" message instead of a fake success.
+ * CONTACT FORM SUBMISSION (Formspree)
+ * The Contact page calls submitEnquiry(data). The data is posted to the
+ * Formspree URL set in .env as VITE_CONTACT_ENDPOINT.
+ * The URL is not a secret, but it is public once the site is built.
  */
 
 const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT;
@@ -37,6 +19,8 @@ export async function submitEnquiry(data) {
     throw fail('NOT_CONFIGURED', 'No contact endpoint is configured.');
   }
 
+  const { website, ...fields } = data; // "website" is the hidden spam-trap field
+
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
@@ -46,8 +30,9 @@ export async function submitEnquiry(data) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        ...data,
-        _subject: `Website enquiry: ${data.subject}`, // used by Formspree; ignored elsewhere
+        ...fields,
+        _gotcha: website || '',
+        _subject: `Website enquiry: ${fields.subject}`,
       }),
       signal: controller.signal,
     });

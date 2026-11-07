@@ -20,11 +20,6 @@ import { submitEnquiry } from '../services/contactService';
    EDITABLE SETTINGS
    --------------------------------------------------------------- */
 
-// Google Maps: open Google Maps → find your office → Share → "Embed a map"
-// → copy ONLY the address inside src="..." and paste it between the quotes.
-// While this is empty, a placeholder box is shown instead.
-const MAP_EMBED_URL = '';
-
 // Set to false if the phone number should be optional.
 const PHONE_REQUIRED = true;
 
@@ -40,7 +35,15 @@ const SERVICE_OPTIONS = [
    --------------------------------------------------------------- */
 
 const FIELD_ORDER = ['name', 'email', 'phone', 'service', 'subject', 'message'];
-const EMPTY = { name: '', email: '', phone: '', service: '', subject: '', message: '' };
+const EMPTY = {
+  name: '',
+  email: '',
+  phone: '',
+  service: '',
+  subject: '',
+  message: '',
+  website: '', // hidden spam-trap field: real visitors never fill it
+};
 
 const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
 
@@ -237,6 +240,7 @@ export default function Contact() {
         service: values.service,
         subject: values.subject.trim(),
         message: values.message.trim(),
+        website: values.website,
         submittedAt: new Date().toISOString(),
       });
       setValues(EMPTY);
@@ -315,6 +319,23 @@ export default function Contact() {
                 <p className="mt-2 text-sm text-muted">Fields marked * are required.</p>
 
                 <div className="mt-7 grid gap-5 sm:grid-cols-2">
+                  {/* Honeypot: hidden from people, bots tend to fill it in */}
+                  <div
+                    className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+                    aria-hidden="true"
+                  >
+                    <label htmlFor="website">Leave this field empty</label>
+                    <input
+                      id="website"
+                      name="website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={values.website}
+                      onChange={handleChange}
+                    />
+                  </div>
+
                   <Field name="name" label="Full Name" error={errors.name}>
                     <input
                       {...fieldProps('name')}
@@ -417,7 +438,7 @@ export default function Contact() {
             )}
           </div>
 
-          {/* Contact details + map */}
+          {/* Contact details */}
           <aside className="space-y-6 lg:col-span-2" aria-label="Contact information">
             <div className="theme-smooth rounded-3xl border border-line bg-surface p-6 sm:p-8">
               <h2 className="text-2xl font-extrabold text-ink">Contact Information</h2>
@@ -445,30 +466,6 @@ export default function Contact() {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            {/* Google Maps */}
-            <div className="theme-smooth overflow-hidden rounded-3xl border border-line bg-surface">
-              {MAP_EMBED_URL ? (
-                <iframe
-                  title="OMKARA RESOURCES office location"
-                  src={MAP_EMBED_URL}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  allowFullScreen
-                  className="h-72 w-full border-0"
-                />
-              ) : (
-                <div className="bg-grid flex h-72 flex-col items-center justify-center gap-3 p-6 text-center">
-                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-accent text-on-accent">
-                    <MapPin size={28} aria-hidden="true" />
-                  </span>
-                  <p className="font-display text-lg font-bold text-ink">Google Map placeholder</p>
-                  <p className="max-w-xs text-sm text-muted">
-                    [Map embed – to be added. See MAP_EMBED_URL in Contact.jsx]
-                  </p>
-                </div>
-              )}
             </div>
           </aside>
         </div>

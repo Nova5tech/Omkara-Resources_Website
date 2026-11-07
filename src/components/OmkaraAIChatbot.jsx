@@ -1,12 +1,10 @@
 import { MessageCircle } from 'lucide-react';
 
 /* ---------------------------------------------------------------
-   EDITABLE: WHATSAPP SETTINGS
-   Put the company WhatsApp number here: country code + number,
-   digits only, no "+", no spaces. Example for India: '919876543210'
-   While this is empty, the button stays hidden.
+   WHATSAPP SETTINGS
+   Country code + number, digits only, no "+", no spaces.
    --------------------------------------------------------------- */
-const WHATSAPP_NUMBER = '';
+const WHATSAPP_NUMBER = '918985481447';
 const WHATSAPP_MESSAGE =
   'Hello OMKARA RESOURCES, I would like to know more about your services.';
 
@@ -24,7 +22,7 @@ export default function OmkaraAIChatbot() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with OMKARA RESOURCES on WhatsApp (opens in a new tab)"
-      className="chat-fab fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-semibold text-[#06301a] shadow-xl transition hover:-translate-y-1 hover:shadow-2xl sm:bottom-6 sm:right-6"
+      className="chat-fab fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] z-40 inline-flex h-14 items-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-semibold text-[#06301a] shadow-xl transition hover:-translate-y-1 hover:shadow-2xl sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:right-[calc(1.5rem+env(safe-area-inset-right))]"
     >
       <MessageCircle size={22} aria-hidden="true" />
       <span className="hidden sm:inline">Chat with us</span>

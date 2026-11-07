@@ -38,7 +38,7 @@ export default function HomeOverview() {
                   href={item.href}
                   className="group flex h-full flex-col rounded-2xl border border-line bg-page p-4 transition hover:-translate-y-1 hover:border-accent hover:shadow-md"
                 >
-                  <div className="mb-3 flex items-center justify-between">
+                  <div className="mb-3 flex items-center justify-between">  
                     <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-on-accent">
                       <Icon size={20} aria-hidden="true" />
                     </span>
